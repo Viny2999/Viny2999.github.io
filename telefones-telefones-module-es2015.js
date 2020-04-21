@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>Telefones</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-title size=\"small\">{{endereco}}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card *ngFor=\"let info of telefones\">\n    <ion-item>\n      <ion-label>{{info.telefone}}</ion-label>\n      <ion-button (click)=\"go(info)\">Ligar</ion-button>\n    </ion-item>\n  \n    <ion-card-content>\n      Última Vez Contatado: {{info.ultimaVezConsultado}} \n\n      <ion-icon name=\"create-outline\" style=\"float: right;font-size: 20px;\" (click)=\"presentModal(info.telefone)\"></ion-icon>\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-back-button color=\"danger\" [text]=\"Voltar\"></ion-back-button>\n    </ion-buttons>\n    <ion-title>Telefones</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-title size=\"small\">{{endereco}}</ion-title>\n  </ion-toolbar>\n  <ion-item>\n    <ion-label>Filtrar Números</ion-label>\n    <ion-select placeholder=\"Selecione\" [(ngModel)]=\"filterOption\" name=\"filterOption\" (ionChange)=\"filter()\">\n      <ion-select-option value=\"n\">Nunca Visitado</ion-select-option>\n      <ion-select-option value=\"y\">Já Visitado</ion-select-option>\n    </ion-select>\n  </ion-item>\n</ion-header>\n\n<ion-content>\n  <ion-card *ngFor=\"let info of telefonesFiltered\">\n    <ion-item>\n      <ion-label>{{info.telefone}}</ion-label>\n      <ion-button (click)=\"go(info)\">Ligar</ion-button>\n    </ion-item>\n  \n    <ion-card-content>\n      Última Vez Contatado: {{info.ultimaVezConsultado}} \n\n      <ion-icon name=\"create-outline\" style=\"float: right;font-size: 20px;\" (click)=\"presentModal(info.telefone)\"></ion-icon>\n    </ion-card-content>\n  </ion-card>\n</ion-content>\n");
 
 /***/ }),
 
@@ -118,13 +118,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
-/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm2015/http.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _environments_environment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../environments/environment */ "./src/environments/environment.ts");
-/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
-/* harmony import */ var _modal_modal_page__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../modal/modal.page */ "./src/app/modal/modal.page.ts");
-
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var _modal_modal_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../modal/modal.page */ "./src/app/modal/modal.page.ts");
+/* harmony import */ var _service_http_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../service/http.service */ "./src/app/service/http.service.ts");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
 
 
 
@@ -137,28 +135,36 @@ let TelefonesPage = class TelefonesPage {
         this.route = route;
         this.http = http;
         this.modalController = modalController;
-        this.API_URL = _environments_environment__WEBPACK_IMPORTED_MODULE_5__["environment"].API_URL;
     }
     ngOnInit() {
-        moment__WEBPACK_IMPORTED_MODULE_4__["locale"]('pt-br');
-        this.endereco = this.route.snapshot.paramMap.get('endereco');
-        this.http.get(`${this.API_URL}/telefones/${this.endereco}`).subscribe(res => {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            moment__WEBPACK_IMPORTED_MODULE_6__["locale"]('pt-br');
+            this.endereco = this.route.snapshot.paramMap.get('endereco');
+            const res = yield this.http.getAllPhonesByAddress(this.endereco);
             this.total = res[0].total;
-            this.telefones = res[0].telefones;
+            this.telefonesOriginal = res[0].telefones;
             this.endereco = `${this.endereco} - Total: ${this.total}`;
-            this.telefones = this.telefones.map(telefone => {
-                telefone.ultimaVezConsultado = telefone.ultimaVezConsultado != '' ? moment__WEBPACK_IMPORTED_MODULE_4__(telefone.ultimaVezConsultado).fromNow() : 'Nunca';
+            this.telefonesOriginal = this.telefonesOriginal.map(telefone => {
+                telefone.ultimaVezConsultado = telefone.ultimaVezConsultado != '' ? moment__WEBPACK_IMPORTED_MODULE_6__(telefone.ultimaVezConsultado).fromNow() : 'Nunca';
                 return telefone;
             });
+            this.telefonesFiltered = this.telefonesOriginal;
         });
     }
     go(item) {
         window.open(`tel:${item.telefone}`, '_system');
     }
+    filter() {
+        this.telefonesFiltered = this.telefonesOriginal.filter(t => {
+            return this.filterOption === 'y' ?
+                (t.ultimaVezConsultado !== 'Nunca') :
+                (t.ultimaVezConsultado === 'Nunca');
+        });
+    }
     presentModal(telefone) {
         return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
             const modal = yield this.modalController.create({
-                component: _modal_modal_page__WEBPACK_IMPORTED_MODULE_7__["ModalPage"],
+                component: _modal_modal_page__WEBPACK_IMPORTED_MODULE_4__["ModalPage"],
                 componentProps: {
                     'telefone': telefone
                 }
@@ -169,8 +175,8 @@ let TelefonesPage = class TelefonesPage {
 };
 TelefonesPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"] },
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"] },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"] }
+    { type: _service_http_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] }
 ];
 TelefonesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -179,8 +185,8 @@ TelefonesPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./telefones.page.scss */ "./src/app/telefones/telefones.page.scss")).default]
     }),
     tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
-        _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"],
-        _ionic_angular__WEBPACK_IMPORTED_MODULE_6__["ModalController"]])
+        _service_http_service__WEBPACK_IMPORTED_MODULE_5__["HttpService"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"]])
 ], TelefonesPage);
 
 

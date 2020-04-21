@@ -458,7 +458,27 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header>Menu</ion-list-header>\n          <ion-note>{{congregacao}}</ion-note>\n\n          <ion-menu-toggle auto-hide=\"false\" *ngFor=\"let p of appPages; let i = index\">\n            <ion-item (click)=\"selectedIndex = i\" routerDirection=\"root\" [routerLink]=\"[p.url]\" lines=\"none\" detail=\"false\" [class.selected]=\"selectedIndex == i\">\n              <ion-icon slot=\"start\" [ios]=\"p.icon + '-outline'\" [md]=\"p.icon + '-sharp'\"></ion-icon>\n              <ion-label>{{ p.title }}</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>";
+    __webpack_exports__["default"] = "<ion-app>\n  <ion-split-pane contentId=\"main-content\">\n    <ion-menu contentId=\"main-content\" type=\"overlay\" *ngIf=\"show === true\">\n      <ion-content>\n        <ion-list id=\"inbox-list\">\n          <ion-list-header>Menu</ion-list-header>\n          <ion-note>{{name}}</ion-note>\n\n          <ion-menu-toggle auto-hide=\"false\">\n            <ion-item lines=\"none\" detail=\"false\" (click)=\"homePage()\">\n              <ion-icon slot=\"start\" name=\"home-outline\"></ion-icon>\n              <ion-label>Ínicio</ion-label>\n            </ion-item>\n\n            <ion-item lines=\"none\" detail=\"false\" (click)=\"logout()\">\n              <ion-icon slot=\"start\" name=\"exit-outline\"></ion-icon>\n              <ion-label>Sair</ion-label>\n            </ion-item>\n          </ion-menu-toggle>\n\n        </ion-list>\n\n      </ion-content>\n    </ion-menu>\n    <ion-router-outlet id=\"main-content\"></ion-router-outlet>\n  </ion-split-pane>\n</ion-app>";
+    /***/
+  },
+
+  /***/
+  "./node_modules/raw-loader/dist/cjs.js!./src/app/login-modal/login-modal.page.html":
+  /*!*****************************************************************************************!*\
+    !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/login-modal/login-modal.page.html ***!
+    \*****************************************************************************************/
+
+  /*! exports provided: default */
+
+  /***/
+  function node_modulesRawLoaderDistCjsJsSrcAppLoginModalLoginModalPageHtml(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Cadastro</ion-title>\n    <ion-icon name=\"close-outline\" (click)=\"dismiss()\" style=\"font-size: 18px;margin-left: 5%;\"></ion-icon>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"formSignin\" (ngSubmit)=\"signin()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Seu Nome e Sobrenome</ion-label>\n      <div *ngIf=\"formSignin.controls.name.errors\" class=\"px-3 text-danger\">\n        <p *ngIf=\"formSignin.controls.name.errors.required\"><small>Campo obrigatório</small></p>\n      </div>\n      <ion-input formControlName=\"name\" type=\"text\"></ion-input>\n    </ion-item>\n    \n    <ion-item>\n      <ion-label position=\"stacked\">Novo Nome de Usuario</ion-label>\n      <div *ngIf=\"formSignin.controls.username.errors\" class=\"px-3 text-danger\">\n        <p *ngIf=\"formSignin.controls.username.errors.required\"><small>Campo obrigatório</small></p>\n      </div>\n      <ion-input formControlName=\"username\" type=\"text\"></ion-input>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label position=\"stacked\">Nova Senha (4 Caracteres no Min.)</ion-label>\n      <div *ngIf=\"formSignin.controls.password.errors\" class=\"px-3 text-danger\">\n        <p *ngIf=\"formSignin.controls.password.errors.required\"><small>Campo obrigatório</small></p>\n      </div>\n      <ion-input formControlName=\"password\" type=\"password\"></ion-input>\n    </ion-item>\n\n    <ion-item>\n      <ion-label position=\"stacked\">Confirmar Nova Senha</ion-label>\n      <div *ngIf=\"formSignin.controls.passwordCheck.errors\" class=\"px-3 text-danger\">\n        <p *ngIf=\"formSignin.controls.passwordCheck.errors.required\"><small>Campo obrigatório</small></p>\n      </div>\n      <ion-input formControlName=\"passwordCheck\" type=\"password\"></ion-input>\n      <p *ngIf=\"formSignin.hasError('notSame')\"><small>Senhas não coincidem</small></p>\n    </ion-item>\n    \n    <ion-item>\n      <ion-label position=\"stacked\">Sua Congregação</ion-label>\n      <div *ngIf=\"formSignin.controls.congregation.errors\" class=\"px-3 text-danger\">\n        <p *ngIf=\"formSignin.controls.congregation.errors.required\"><small>Campo obrigatório</small></p>\n      </div>\n      <ion-select placeholder=\"Selecione\" formControlName=\"congregation\">\n        <ion-select-option *ngFor=\"let cong of congregations\" [value] = \"cong.cod\">{{cong.value}}</ion-select-option>\n      </ion-select>\n    </ion-item>\n  </form>\n</ion-content>\n\n<ion-footer class=\"ion-no-border\"> \n  <div class=\"ion-padding\" style=\"margin-top: 2%;\">\n    <ion-button expand=\"block\" class=\"ion-no-margin\" (click)=\"signin()\" [disabled]=\"!formSignin.valid\">Cadastrar</ion-button>\n  </div>\n</ion-footer>";
     /***/
   },
 
@@ -478,7 +498,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Observações</ion-title>\n    <ion-icon name=\"close-outline\" (click)=\"dismiss()\" style=\"font-size: 18px;margin-left: 5%;\"></ion-icon>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card>\n    <ion-item>\n      <ion-label position=\"floating\">Nova Observação</ion-label>\n      <ion-textarea [(ngModel)]=\"observacao\" name=\"observacao\" autoGrow=\"true\"></ion-textarea>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"floating\">Publicador</ion-label>\n      <ion-input [(ngModel)]=\"author\" name=\"author\"></ion-input>\n    </ion-item>\n    <ion-button (click)=\"save()\" style=\"float: right; margin: 5%;\">Salvar</ion-button>\n  </ion-card>\n\n  <ion-card style=\"margin-top: 5%;\" *ngFor=\"let obs of listaObservacao\">\n    <ion-item>\n      Publicador: {{obs.author}} \n      <ion-icon style=\"position: absolute; right: 0; margin-right: 5%;\" name=\"trash-outline\" (click)=\"deleteObservacao(obs._id)\"></ion-icon>\n    </ion-item>\n    <ion-card-content>\n      Data e Hora: {{obs.dataCriada}}\n    </ion-card-content>\n    <ion-item>\n      {{obs.observacao}}\n    </ion-item>\n  </ion-card>\n</ion-content>\n";
+    __webpack_exports__["default"] = "<ion-header>\n  <ion-toolbar>\n    <ion-title>Observações</ion-title>\n    <ion-back-button color=\"danger\" [text]=\"Voltar\"></ion-back-button>\n    <ion-icon name=\"close-outline\" (click)=\"dismiss()\" style=\"font-size: 18px;margin-left: 5%;\"></ion-icon>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <ion-card>\n    <ion-item>\n      <ion-label position=\"floating\">Nova Observação</ion-label>\n      <ion-textarea [(ngModel)]=\"observacao\" name=\"observacao\" autoGrow=\"true\"></ion-textarea>\n    </ion-item>\n    <ion-item>\n      <ion-label position=\"floating\">Publicador</ion-label>\n      <ion-input [(ngModel)]=\"author\" name=\"author\"></ion-input>\n    </ion-item>\n    <ion-button (click)=\"save()\" style=\"float: right; margin: 5%;\">Salvar</ion-button>\n  </ion-card>\n\n  <ion-card style=\"margin-top: 5%;\" *ngFor=\"let obs of listaObservacao\">\n    <ion-item>\n      Publicador: {{obs.author}} \n      <ion-icon style=\"position: absolute; right: 0; margin-right: 5%;\" name=\"trash-outline\" (click)=\"deleteObservacao(obs._id)\"></ion-icon>\n    </ion-item>\n    <ion-card-content>\n      Data e Hora: {{obs.dataCriada}}\n    </ion-card-content>\n    <ion-item>\n      {{obs.observacao}}\n    </ion-item>\n  </ion-card>\n</ion-content>\n";
     /***/
   },
 
@@ -1118,7 +1138,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       redirectTo: 'login',
       pathMatch: 'full'
     }, {
-      path: 'folder/:congregacao',
+      path: 'ruas',
       loadChildren: function loadChildren() {
         return __webpack_require__.e(
         /*! import() | folder-folder-module */
@@ -1159,6 +1179,28 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         /*! ./modal/modal.module */
         "./src/app/modal/modal.module.ts")).then(function (m) {
           return m.ModalPageModule;
+        });
+      }
+    }, {
+      path: 'login-modal',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | login-modal-login-modal-module */
+        "login-modal-login-modal-module").then(__webpack_require__.bind(null,
+        /*! ./login-modal/login-modal.module */
+        "./src/app/login-modal/login-modal.module.ts")).then(function (m) {
+          return m.LoginModalPageModule;
+        });
+      }
+    }, {
+      path: 'edit-users/:user',
+      loadChildren: function loadChildren() {
+        return __webpack_require__.e(
+        /*! import() | edit-users-edit-users-module */
+        "edit-users-edit-users-module").then(__webpack_require__.bind(null,
+        /*! ./edit-users/edit-users.module */
+        "./src/app/edit-users/edit-users.module.ts")).then(function (m) {
+          return m.EditUsersPageModule;
         });
       }
     }];
@@ -1230,46 +1272,47 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _data_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! ./data.service */
-    "./src/app/data.service.ts");
-    /* harmony import */
-
-
-    var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @angular/common/http */
-    "./node_modules/@angular/common/fesm2015/http.js");
-    /* harmony import */
-
-
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../environments/environment */
-    "./src/environments/environment.ts");
+    var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/router */
+    "./node_modules/@angular/router/fesm2015/router.js");
 
     var AppComponent = /*#__PURE__*/function () {
-      function AppComponent(data, http) {
+      function AppComponent(router) {
         _classCallCheck(this, AppComponent);
 
-        this.data = data;
-        this.http = http;
-        this.selectedIndex = 0;
-        this.API_URL = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].API_URL;
+        this.router = router;
+        this.show = true;
       }
 
       _createClass(AppComponent, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          var _this = this;
+          if (window.location.href.match(/\/login/) !== null || window.location.href === 'http://localhost:4200/' || window.location.href === 'https://territorios-telefone-dev.netlify.app/') {
+            this.show = false;
+          }
 
-          this.http.get("".concat(this.API_URL));
-          this.data.currentCongregacao.subscribe(function (congregacao) {
-            _this.congregacao = congregacao;
-            _this.appPages = [{
-              title: 'Ínicio',
-              url: '/folder/' + _this.congregacao,
-              icon: 'home'
-            }];
-          });
+          this.name = window.localStorage['myData'] ? JSON.parse(window.localStorage['myData']).name : '';
+        }
+      }, {
+        key: "ionViewWillEnter",
+        value: function ionViewWillEnter() {
+          this.ngOnInit();
+        }
+      }, {
+        key: "setShow",
+        value: function setShow() {
+          this.show = true;
+        }
+      }, {
+        key: "homePage",
+        value: function homePage() {
+          this.router.navigate(['/ruas']);
+        }
+      }, {
+        key: "logout",
+        value: function logout() {
+          window.localStorage.clear();
+          this.router.navigate(['/login']);
         }
       }]);
 
@@ -1278,9 +1321,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
     AppComponent.ctorParameters = function () {
       return [{
-        type: _data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"]
-      }, {
-        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]
       }];
     };
 
@@ -1292,7 +1333,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./app.component.scss */
       "./src/app/app.component.scss"))["default"]]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_data_service__WEBPACK_IMPORTED_MODULE_2__["DataService"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])], AppComponent);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])], AppComponent);
     /***/
   },
 
@@ -1387,15 +1428,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     var _angular_forms__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(
     /*! @angular/forms */
     "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _login_modal_login_modal_page__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+    /*! ./login-modal/login-modal.page */
+    "./src/app/login-modal/login-modal.page.ts");
 
     var AppModule = function AppModule() {
       _classCallCheck(this, AppModule);
     };
 
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["NgModule"])({
-      declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _modal_modal_page__WEBPACK_IMPORTED_MODULE_10__["ModalPage"]],
-      entryComponents: [_modal_modal_page__WEBPACK_IMPORTED_MODULE_10__["ModalPage"]],
-      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"]],
+      declarations: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"], _modal_modal_page__WEBPACK_IMPORTED_MODULE_10__["ModalPage"], _login_modal_login_modal_page__WEBPACK_IMPORTED_MODULE_12__["LoginModalPage"]],
+      entryComponents: [_modal_modal_page__WEBPACK_IMPORTED_MODULE_10__["ModalPage"], _login_modal_login_modal_page__WEBPACK_IMPORTED_MODULE_12__["LoginModalPage"]],
+      imports: [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"], _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"].forRoot(), _app_routing_module__WEBPACK_IMPORTED_MODULE_8__["AppRoutingModule"], _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClientModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["FormsModule"], _angular_forms__WEBPACK_IMPORTED_MODULE_11__["ReactiveFormsModule"]],
       providers: [_ionic_native_status_bar_ngx__WEBPACK_IMPORTED_MODULE_6__["StatusBar"], _ionic_native_splash_screen_ngx__WEBPACK_IMPORTED_MODULE_5__["SplashScreen"], _angular_common_http__WEBPACK_IMPORTED_MODULE_9__["HttpClient"], {
         provide: _angular_router__WEBPACK_IMPORTED_MODULE_3__["RouteReuseStrategy"],
         useClass: _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicRouteStrategy"]
@@ -1406,23 +1453,43 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
   },
 
   /***/
-  "./src/app/data.service.ts":
-  /*!*********************************!*\
-    !*** ./src/app/data.service.ts ***!
-    \*********************************/
+  "./src/app/login-modal/login-modal.page.scss":
+  /*!***************************************************!*\
+    !*** ./src/app/login-modal/login-modal.page.scss ***!
+    \***************************************************/
 
-  /*! exports provided: DataService */
+  /*! exports provided: default */
 
   /***/
-  function srcAppDataServiceTs(module, __webpack_exports__, __webpack_require__) {
+  function srcAppLoginModalLoginModalPageScss(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony default export */
+
+
+    __webpack_exports__["default"] = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2xvZ2luLW1vZGFsL2xvZ2luLW1vZGFsLnBhZ2Uuc2NzcyJ9 */";
+    /***/
+  },
+
+  /***/
+  "./src/app/login-modal/login-modal.page.ts":
+  /*!*************************************************!*\
+    !*** ./src/app/login-modal/login-modal.page.ts ***!
+    \*************************************************/
+
+  /*! exports provided: LoginModalPage */
+
+  /***/
+  function srcAppLoginModalLoginModalPageTs(module, __webpack_exports__, __webpack_require__) {
     "use strict";
 
     __webpack_require__.r(__webpack_exports__);
     /* harmony export (binding) */
 
 
-    __webpack_require__.d(__webpack_exports__, "DataService", function () {
-      return DataService;
+    __webpack_require__.d(__webpack_exports__, "LoginModalPage", function () {
+      return LoginModalPage;
     });
     /* harmony import */
 
@@ -1439,31 +1506,177 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
-    /*! rxjs */
-    "./node_modules/rxjs/_esm2015/index.js");
+    var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @ionic/angular */
+    "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+    /* harmony import */
 
-    var DataService = /*#__PURE__*/function () {
-      function DataService() {
-        _classCallCheck(this, DataService);
 
-        this.congregacaoSource = new rxjs__WEBPACK_IMPORTED_MODULE_2__["BehaviorSubject"]('default congregacao');
-        this.currentCongregacao = this.congregacaoSource.asObservable();
+    var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! @angular/forms */
+    "./node_modules/@angular/forms/fesm2015/forms.js");
+    /* harmony import */
+
+
+    var _service_http_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
+    /*! ../service/http.service */
+    "./src/app/service/http.service.ts");
+
+    var LoginModalPage = /*#__PURE__*/function () {
+      function LoginModalPage(modalController, http, alertController, formBuilder) {
+        _classCallCheck(this, LoginModalPage);
+
+        this.modalController = modalController;
+        this.http = http;
+        this.alertController = alertController;
+        this.formBuilder = formBuilder;
+        this.formSignin = this.formBuilder.group({
+          'name': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])],
+          'username': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])],
+          'password': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(4)])],
+          'passwordCheck': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].minLength(4)])],
+          'congregation': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_3__["Validators"].required])]
+        }, {
+          validator: this.checkPasswords
+        });
       }
 
-      _createClass(DataService, [{
-        key: "changeCongregacao",
-        value: function changeCongregacao(congregacao) {
-          this.congregacaoSource.next(congregacao);
+      _createClass(LoginModalPage, [{
+        key: "ngOnInit",
+        value: function ngOnInit() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    _context.next = 2;
+                    return this.http.getAllCongregation();
+
+                  case 2:
+                    this.congregations = _context.sent;
+
+                  case 3:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
+        }
+      }, {
+        key: "checkPasswords",
+        value: function checkPasswords(group) {
+          var pass = group.get('password').value;
+          var confirmPass = group.get('passwordCheck').value;
+          return pass === confirmPass ? null : {
+            notSame: true
+          };
+        }
+      }, {
+        key: "signin",
+        value: function signin() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            var _this = this;
+
+            var user, alert, _alert;
+
+            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              while (1) {
+                switch (_context2.prev = _context2.next) {
+                  case 0:
+                    user = {
+                      name: this.formSignin.get('name').value,
+                      username: this.formSignin.get('username').value,
+                      password: this.formSignin.get('password').value,
+                      congregation: this.formSignin.get('congregation').value
+                    };
+                    _context2.prev = 1;
+                    _context2.next = 4;
+                    return this.http.postUser(user);
+
+                  case 4:
+                    _context2.next = 6;
+                    return this.alertController.create({
+                      header: 'Parabéns!',
+                      message: 'Sua conta foi criada com sucesso!',
+                      buttons: [{
+                        text: 'OK',
+                        handler: function handler() {
+                          _this.dismiss();
+                        }
+                      }]
+                    });
+
+                  case 6:
+                    alert = _context2.sent;
+                    _context2.next = 9;
+                    return alert.present();
+
+                  case 9:
+                    _context2.next = 18;
+                    break;
+
+                  case 11:
+                    _context2.prev = 11;
+                    _context2.t0 = _context2["catch"](1);
+                    _context2.next = 15;
+                    return this.alertController.create({
+                      header: 'Desculpe',
+                      message: 'Houve um erro no cadastramento, tente novamente',
+                      buttons: [{
+                        text: 'OK',
+                        handler: function handler() {
+                          _this.signin();
+                        }
+                      }]
+                    });
+
+                  case 15:
+                    _alert = _context2.sent;
+                    _context2.next = 18;
+                    return _alert.present();
+
+                  case 18:
+                  case "end":
+                    return _context2.stop();
+                }
+              }
+            }, _callee2, this, [[1, 11]]);
+          }));
+        }
+      }, {
+        key: "dismiss",
+        value: function dismiss() {
+          this.modalController.dismiss({
+            'dismissed': true
+          });
         }
       }]);
 
-      return DataService;
+      return LoginModalPage;
     }();
 
-    DataService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-      providedIn: 'root'
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])], DataService);
+    LoginModalPage.ctorParameters = function () {
+      return [{
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"]
+      }, {
+        type: _service_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"]
+      }, {
+        type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]
+      }, {
+        type: _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"]
+      }];
+    };
+
+    LoginModalPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+      selector: 'app-login-modal',
+      template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! raw-loader!./login-modal.page.html */
+      "./node_modules/raw-loader/dist/cjs.js!./src/app/login-modal/login-modal.page.html"))["default"],
+      styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
+      /*! ./login-modal.page.scss */
+      "./src/app/login-modal/login-modal.page.scss"))["default"]]
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"], _service_http_service__WEBPACK_IMPORTED_MODULE_4__["HttpService"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"], _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormBuilder"]])], LoginModalPage);
     /***/
   },
 
@@ -1527,25 +1740,19 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _angular_common_http__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! @angular/common/http */
-    "./node_modules/@angular/common/fesm2015/http.js");
+    var _service_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../service/http.service */
+    "./src/app/service/http.service.ts");
     /* harmony import */
 
 
-    var _environments_environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../../environments/environment */
-    "./src/environments/environment.ts");
-    /* harmony import */
-
-
-    var moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
+    var moment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
     /*! moment */
     "./node_modules/moment/moment.js");
     /* harmony import */
 
 
-    var moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_5__);
+    var moment__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_4__);
 
     var ModalPage = /*#__PURE__*/function () {
       function ModalPage(modalController, alertController, http) {
@@ -1554,7 +1761,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
         this.modalController = modalController;
         this.alertController = alertController;
         this.http = http;
-        this.API_URL = _environments_environment__WEBPACK_IMPORTED_MODULE_4__["environment"].API_URL;
       }
 
       _createClass(ModalPage, [{
@@ -1565,25 +1771,25 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "atualizarLista",
         value: function atualizarLista() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-            return regeneratorRuntime.wrap(function _callee$(_context) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+            return regeneratorRuntime.wrap(function _callee3$(_context3) {
               while (1) {
-                switch (_context.prev = _context.next) {
+                switch (_context3.prev = _context3.next) {
                   case 0:
-                    _context.next = 2;
-                    return this.http.get("".concat(this.API_URL, "/observacoes/").concat(this.telefone)).toPromise();
+                    _context3.next = 2;
+                    return this.http.getObservation(this.telefone);
 
                   case 2:
-                    this.information = _context.sent;
+                    this.information = _context3.sent;
                     this.listaObservacaoOriginal = this.information.observacoes;
                     this.listaObservacao = this.parseDates(this.information.observacoes);
 
                   case 5:
                   case "end":
-                    return _context.stop();
+                    return _context3.stop();
                 }
               }
-            }, _callee, this);
+            }, _callee3, this);
           }));
         }
       }, {
@@ -1596,11 +1802,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "save",
         value: function save() {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-            var data;
-            return regeneratorRuntime.wrap(function _callee2$(_context2) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+            var data, dataToUpdate;
+            return regeneratorRuntime.wrap(function _callee4$(_context4) {
               while (1) {
-                switch (_context2.prev = _context2.next) {
+                switch (_context4.prev = _context4.next) {
                   case 0:
                     data = {
                       observacao: this.observacao,
@@ -1608,29 +1814,30 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                       dataCriada: new Date()
                     };
                     this.listaObservacaoOriginal.push(data);
-                    _context2.next = 4;
-                    return this.http.put("".concat(this.API_URL, "/observacoes/").concat(this.telefone), {
+                    dataToUpdate = {
                       observacoes: this.listaObservacaoOriginal
-                    }).toPromise();
+                    };
+                    _context4.next = 5;
+                    return this.http.putObservation(this.telefone, dataToUpdate);
 
-                  case 4:
+                  case 5:
                     this.observacao = '';
                     this.author = '';
                     this.atualizarLista();
 
-                  case 7:
+                  case 8:
                   case "end":
-                    return _context2.stop();
+                    return _context4.stop();
                 }
               }
-            }, _callee2, this);
+            }, _callee4, this);
           }));
         }
       }, {
         key: "parseDates",
         value: function parseDates(observacoes) {
           observacoes = observacoes.map(function (obs) {
-            obs.dataCriada = moment__WEBPACK_IMPORTED_MODULE_5__(obs.dataCriada).format('DD/MM/YYYY HH:MM');
+            obs.dataCriada = moment__WEBPACK_IMPORTED_MODULE_4__(obs.dataCriada).format('DD/MM/YYYY HH:MM');
             return obs;
           });
           return observacoes;
@@ -1638,38 +1845,38 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         key: "deleteObservacao",
         value: function deleteObservacao(id) {
-          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
             var _this2 = this;
 
             var alert;
-            return regeneratorRuntime.wrap(function _callee4$(_context4) {
+            return regeneratorRuntime.wrap(function _callee6$(_context6) {
               while (1) {
-                switch (_context4.prev = _context4.next) {
+                switch (_context6.prev = _context6.next) {
                   case 0:
-                    _context4.next = 2;
+                    _context6.next = 2;
                     return this.alertController.create({
                       header: 'Atenção!',
                       message: 'Tem certeza que deseja excluir essa observação?',
                       buttons: [{
                         text: 'Sim',
                         handler: function handler() {
-                          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
-                            return regeneratorRuntime.wrap(function _callee3$(_context3) {
+                          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](_this2, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+                            return regeneratorRuntime.wrap(function _callee5$(_context5) {
                               while (1) {
-                                switch (_context3.prev = _context3.next) {
+                                switch (_context5.prev = _context5.next) {
                                   case 0:
-                                    _context3.next = 2;
-                                    return this.http["delete"]("".concat(this.API_URL, "/observacoes/").concat(this.telefone, "?id=").concat(id)).toPromise();
+                                    _context5.next = 2;
+                                    return this.http.deleteObservation(this.telefone, id);
 
                                   case 2:
                                     this.atualizarLista();
 
                                   case 3:
                                   case "end":
-                                    return _context3.stop();
+                                    return _context5.stop();
                                 }
                               }
-                            }, _callee3, this);
+                            }, _callee5, this);
                           }));
                         }
                       }, {
@@ -1678,16 +1885,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     });
 
                   case 2:
-                    alert = _context4.sent;
-                    _context4.next = 5;
+                    alert = _context6.sent;
+                    _context6.next = 5;
                     return alert.present();
 
                   case 5:
                   case "end":
-                    return _context4.stop();
+                    return _context6.stop();
                 }
               }
-            }, _callee4, this);
+            }, _callee6, this);
           }));
         }
       }]);
@@ -1701,7 +1908,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"]
       }, {
-        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]
+        type: _service_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]
       }];
     };
 
@@ -1714,7 +1921,380 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./modal.page.scss */
       "./src/app/modal/modal.page.scss"))["default"]]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"], _angular_common_http__WEBPACK_IMPORTED_MODULE_3__["HttpClient"]])], ModalPage);
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_ionic_angular__WEBPACK_IMPORTED_MODULE_2__["ModalController"], _ionic_angular__WEBPACK_IMPORTED_MODULE_2__["AlertController"], _service_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]])], ModalPage);
+    /***/
+  },
+
+  /***/
+  "./src/app/service/http.service.ts":
+  /*!*****************************************!*\
+    !*** ./src/app/service/http.service.ts ***!
+    \*****************************************/
+
+  /*! exports provided: HttpService */
+
+  /***/
+  function srcAppServiceHttpServiceTs(module, __webpack_exports__, __webpack_require__) {
+    "use strict";
+
+    __webpack_require__.r(__webpack_exports__);
+    /* harmony export (binding) */
+
+
+    __webpack_require__.d(__webpack_exports__, "HttpService", function () {
+      return HttpService;
+    });
+    /* harmony import */
+
+
+    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
+    /*! tslib */
+    "./node_modules/tslib/tslib.es6.js");
+    /* harmony import */
+
+
+    var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(
+    /*! @angular/core */
+    "./node_modules/@angular/core/fesm2015/core.js");
+    /* harmony import */
+
+
+    var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+    /*! @angular/common/http */
+    "./node_modules/@angular/common/fesm2015/http.js");
+    /* harmony import */
+
+
+    var _environments_environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../../environments/environment */
+    "./src/environments/environment.ts");
+
+    var HttpService = /*#__PURE__*/function () {
+      function HttpService(http) {
+        _classCallCheck(this, HttpService);
+
+        this.http = http;
+        this.API_URL = _environments_environment__WEBPACK_IMPORTED_MODULE_3__["environment"].API_URL;
+      }
+
+      _createClass(HttpService, [{
+        key: "getMain",
+        value: function getMain() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
+            return regeneratorRuntime.wrap(function _callee7$(_context7) {
+              while (1) {
+                switch (_context7.prev = _context7.next) {
+                  case 0:
+                    return _context7.abrupt("return", this.http.get(this.API_URL).toPromise());
+
+                  case 1:
+                  case "end":
+                    return _context7.stop();
+                }
+              }
+            }, _callee7, this);
+          }));
+        }
+      }, {
+        key: "getAllCongregation",
+        value: function getAllCongregation() {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
+            return regeneratorRuntime.wrap(function _callee8$(_context8) {
+              while (1) {
+                switch (_context8.prev = _context8.next) {
+                  case 0:
+                    _context8.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/congregacoes")).toPromise();
+
+                  case 2:
+                    return _context8.abrupt("return", _context8.sent);
+
+                  case 3:
+                  case "end":
+                    return _context8.stop();
+                }
+              }
+            }, _callee8, this);
+          }));
+        }
+      }, {
+        key: "getCongregationByName",
+        value: function getCongregationByName(congregation) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+            return regeneratorRuntime.wrap(function _callee9$(_context9) {
+              while (1) {
+                switch (_context9.prev = _context9.next) {
+                  case 0:
+                    _context9.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/congregacoes/").concat(congregation)).toPromise();
+
+                  case 2:
+                    return _context9.abrupt("return", _context9.sent);
+
+                  case 3:
+                  case "end":
+                    return _context9.stop();
+                }
+              }
+            }, _callee9, this);
+          }));
+        }
+      }, {
+        key: "postLogin",
+        value: function postLogin(user) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
+            return regeneratorRuntime.wrap(function _callee10$(_context10) {
+              while (1) {
+                switch (_context10.prev = _context10.next) {
+                  case 0:
+                    _context10.next = 2;
+                    return this.http.post("".concat(this.API_URL, "/login"), user).toPromise();
+
+                  case 2:
+                    return _context10.abrupt("return", _context10.sent);
+
+                  case 3:
+                  case "end":
+                    return _context10.stop();
+                }
+              }
+            }, _callee10, this);
+          }));
+        }
+      }, {
+        key: "getOneUserByUsername",
+        value: function getOneUserByUsername(username) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
+            return regeneratorRuntime.wrap(function _callee11$(_context11) {
+              while (1) {
+                switch (_context11.prev = _context11.next) {
+                  case 0:
+                    _context11.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/users/").concat(username)).toPromise();
+
+                  case 2:
+                    return _context11.abrupt("return", _context11.sent);
+
+                  case 3:
+                  case "end":
+                    return _context11.stop();
+                }
+              }
+            }, _callee11, this);
+          }));
+        }
+      }, {
+        key: "getOneUserByName",
+        value: function getOneUserByName(name) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
+            return regeneratorRuntime.wrap(function _callee12$(_context12) {
+              while (1) {
+                switch (_context12.prev = _context12.next) {
+                  case 0:
+                    _context12.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/users/name/").concat(name)).toPromise();
+
+                  case 2:
+                    return _context12.abrupt("return", _context12.sent);
+
+                  case 3:
+                  case "end":
+                    return _context12.stop();
+                }
+              }
+            }, _callee12, this);
+          }));
+        }
+      }, {
+        key: "getAllUsersByCongregation",
+        value: function getAllUsersByCongregation(congregation) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
+            return regeneratorRuntime.wrap(function _callee13$(_context13) {
+              while (1) {
+                switch (_context13.prev = _context13.next) {
+                  case 0:
+                    _context13.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/users/congregation/").concat(congregation)).toPromise();
+
+                  case 2:
+                    return _context13.abrupt("return", _context13.sent);
+
+                  case 3:
+                  case "end":
+                    return _context13.stop();
+                }
+              }
+            }, _callee13, this);
+          }));
+        }
+      }, {
+        key: "postUser",
+        value: function postUser(user) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
+            return regeneratorRuntime.wrap(function _callee14$(_context14) {
+              while (1) {
+                switch (_context14.prev = _context14.next) {
+                  case 0:
+                    _context14.next = 2;
+                    return this.http.post("".concat(this.API_URL, "/users"), user).toPromise();
+
+                  case 2:
+                    return _context14.abrupt("return", _context14.sent);
+
+                  case 3:
+                  case "end":
+                    return _context14.stop();
+                }
+              }
+            }, _callee14, this);
+          }));
+        }
+      }, {
+        key: "updateUser",
+        value: function updateUser(username, dataToUpdate) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
+            return regeneratorRuntime.wrap(function _callee15$(_context15) {
+              while (1) {
+                switch (_context15.prev = _context15.next) {
+                  case 0:
+                    _context15.next = 2;
+                    return this.http.put("".concat(this.API_URL, "/users/").concat(username), dataToUpdate).toPromise();
+
+                  case 2:
+                    return _context15.abrupt("return", _context15.sent);
+
+                  case 3:
+                  case "end":
+                    return _context15.stop();
+                }
+              }
+            }, _callee15, this);
+          }));
+        }
+      }, {
+        key: "deleteUser",
+        value: function deleteUser(username) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+            return regeneratorRuntime.wrap(function _callee16$(_context16) {
+              while (1) {
+                switch (_context16.prev = _context16.next) {
+                  case 0:
+                    _context16.next = 2;
+                    return this.http["delete"]("".concat(this.API_URL, "/users/").concat(username)).toPromise();
+
+                  case 2:
+                    return _context16.abrupt("return", _context16.sent);
+
+                  case 3:
+                  case "end":
+                    return _context16.stop();
+                }
+              }
+            }, _callee16, this);
+          }));
+        }
+      }, {
+        key: "getAllPhonesByAddress",
+        value: function getAllPhonesByAddress(address) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee17() {
+            return regeneratorRuntime.wrap(function _callee17$(_context17) {
+              while (1) {
+                switch (_context17.prev = _context17.next) {
+                  case 0:
+                    _context17.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/telefones/").concat(address)).toPromise();
+
+                  case 2:
+                    return _context17.abrupt("return", _context17.sent);
+
+                  case 3:
+                  case "end":
+                    return _context17.stop();
+                }
+              }
+            }, _callee17, this);
+          }));
+        }
+      }, {
+        key: "getObservation",
+        value: function getObservation(phone) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee18() {
+            return regeneratorRuntime.wrap(function _callee18$(_context18) {
+              while (1) {
+                switch (_context18.prev = _context18.next) {
+                  case 0:
+                    _context18.next = 2;
+                    return this.http.get("".concat(this.API_URL, "/observacoes/").concat(phone)).toPromise();
+
+                  case 2:
+                    return _context18.abrupt("return", _context18.sent);
+
+                  case 3:
+                  case "end":
+                    return _context18.stop();
+                }
+              }
+            }, _callee18, this);
+          }));
+        }
+      }, {
+        key: "putObservation",
+        value: function putObservation(phone, dataToUpdate) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee19() {
+            return regeneratorRuntime.wrap(function _callee19$(_context19) {
+              while (1) {
+                switch (_context19.prev = _context19.next) {
+                  case 0:
+                    _context19.next = 2;
+                    return this.http.put("".concat(this.API_URL, "/observacoes/").concat(phone), dataToUpdate).toPromise();
+
+                  case 2:
+                    return _context19.abrupt("return", _context19.sent);
+
+                  case 3:
+                  case "end":
+                    return _context19.stop();
+                }
+              }
+            }, _callee19, this);
+          }));
+        }
+      }, {
+        key: "deleteObservation",
+        value: function deleteObservation(phone, id) {
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee20() {
+            return regeneratorRuntime.wrap(function _callee20$(_context20) {
+              while (1) {
+                switch (_context20.prev = _context20.next) {
+                  case 0:
+                    _context20.next = 2;
+                    return this.http["delete"]("".concat(this.API_URL, "/observacoes/").concat(phone, "?id=").concat(id)).toPromise();
+
+                  case 2:
+                    return _context20.abrupt("return", _context20.sent);
+
+                  case 3:
+                  case "end":
+                    return _context20.stop();
+                }
+              }
+            }, _callee20, this);
+          }));
+        }
+      }]);
+
+      return HttpService;
+    }();
+
+    HttpService.ctorParameters = function () {
+      return [{
+        type: _angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]
+      }];
+    };
+
+    HttpService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+      providedIn: 'root'
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])], HttpService);
     /***/
   },
 

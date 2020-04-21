@@ -9,7 +9,7 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Território App</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-title size= \"small\">Login</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form (ngSubmit)=\"processForm()\">\n    <p style=\"margin-top: 3px;margin-left: 140px;\">{{checkPassword}}</p>\n    <ion-item>\n      <ion-label>Nome da Congregação</ion-label>\n      <ion-select placeholder=\"Congregação\" [(ngModel)]=\"cong\" name=\"cong\">\n        <ion-select-option value=\"jardim_violeta\">Jardim Violeta</ion-select-option>\n        <ion-select-option value=\"rio_da_prata\">Rio da Prata</ion-select-option>\n      </ion-select>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label position=\"stacked\">Senha</ion-label>\n      <ion-input required [(ngModel)]=\"password\" name=\"password\" type=\"password\"></ion-input>\n    </ion-item>\n\n    <div class=\"ion-padding\">\n      <ion-button expand=\"block\" type=\"submit\" class=\"ion-no-margin\">Login</ion-button>\n    </div>\n  </form>\n\n</ion-content>\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-header>\n  <ion-toolbar>\n    <ion-title>Território App</ion-title>\n  </ion-toolbar>\n  <ion-toolbar>\n    <ion-title size= \"small\">Login</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content>\n  <form [formGroup]=\"formLogin\" (ngSubmit)=\"processForm()\">\n    <ion-item>\n      <ion-label position=\"stacked\">Nome de Usuario</ion-label>\n      <ion-input formControlName=\"username\" type=\"text\"></ion-input>\n    </ion-item>\n  \n    <ion-item>\n      <ion-label position=\"stacked\">Senha</ion-label>\n      <ion-input formControlName=\"password\" type=\"password\"></ion-input>\n    </ion-item>\n  </form>\n</ion-content>\n\n<ion-footer class=\"ion-no-border\"> \n  <div class=\"ion-padding\" style=\"margin-top: 2%;\">\n    <ion-button expand=\"block\" class=\"ion-no-margin\" (click)=\"processForm()\" [disabled]=\"!formLogin.valid\">Login</ion-button>\n  </div>\n\n  <div class=\"ion-padding\" style=\"margin-top: 2%;\">\n    <ion-button color=\"success\" expand=\"block\" class=\"ion-no-margin\" (click)=\"cadaster()\">Cadastre-se</ion-button>\n  </div>\n</ion-footer>");
 
 /***/ }),
 
@@ -82,6 +82,7 @@ LoginPageModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
             _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
             _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
             _ionic_angular__WEBPACK_IMPORTED_MODULE_4__["IonicModule"],
+            _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
             _login_routing_module__WEBPACK_IMPORTED_MODULE_5__["LoginPageRoutingModule"]
         ],
         declarations: [_login_page__WEBPACK_IMPORTED_MODULE_6__["LoginPage"]]
@@ -118,30 +119,92 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm2015/router.js");
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @ionic/angular */ "./node_modules/@ionic/angular/fesm2015/ionic-angular.js");
+/* harmony import */ var _login_modal_login_modal_page__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../login-modal/login-modal.page */ "./src/app/login-modal/login-modal.page.ts");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm2015/forms.js");
+/* harmony import */ var _service_http_service__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../service/http.service */ "./src/app/service/http.service.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../app.component */ "./src/app/app.component.ts");
+
+
+
+
+
 
 
 
 let LoginPage = class LoginPage {
-    constructor(router) {
+    constructor(router, modalController, formBuilder, http, alertController, app) {
         this.router = router;
+        this.modalController = modalController;
+        this.formBuilder = formBuilder;
+        this.http = http;
+        this.alertController = alertController;
+        this.app = app;
+        this.formLogin = this.formBuilder.group({
+            'username': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required])],
+            'password': [null, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].compose([_angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].required, _angular_forms__WEBPACK_IMPORTED_MODULE_5__["Validators"].minLength(4)])],
+        });
     }
     ngOnInit() {
+        this.app.setShow();
+        this.http.getMain();
+        const username = window.localStorage['myData'] ?
+            JSON.parse(window.localStorage['myData']).username :
+            '';
+        if (username !== '') {
+            this.router.navigate(['/ruas']);
+        }
+    }
+    ionViewWillEnter() {
+        this.ngOnInit();
     }
     processForm() {
-        this.checkPassword = '';
-        if (this.cong == 'jardim_violeta' && this.password == 'j1j2j3j4') {
-            this.router.navigate(['/folder', 'Jardim Violeta']);
-        }
-        else if (this.cong == 'rio_da_prata' && this.password == 'RdP19620') {
-            this.router.navigate(['/folder', 'Rio da Prata']);
-        }
-        else {
-            this.checkPassword = 'Senha Incorreta!';
-        }
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const user = {
+                username: this.formLogin.get('username').value,
+                password: this.formLogin.get('password').value
+            };
+            try {
+                this.loginResponse = yield this.http.postLogin(user);
+                if (this.loginResponse.authorization === true) {
+                    window.localStorage['myData'] = JSON.stringify({
+                        username: this.formLogin.get('username').value,
+                        congregation: this.loginResponse.congregation,
+                        name: this.loginResponse.name
+                    });
+                    this.router.navigate(['/ruas']);
+                }
+            }
+            catch (error) {
+                const alert = yield this.alertController.create({
+                    header: 'Desculpe',
+                    message: 'Usuário ou Senha incorretos, tente novamente',
+                    buttons: [
+                        {
+                            text: 'OK'
+                        }
+                    ]
+                });
+                yield alert.present();
+            }
+        });
+    }
+    cadaster() {
+        return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function* () {
+            const modal = yield this.modalController.create({
+                component: _login_modal_login_modal_page__WEBPACK_IMPORTED_MODULE_4__["LoginModalPage"]
+            });
+            return yield modal.present();
+        });
     }
 };
 LoginPage.ctorParameters = () => [
-    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] }
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"] },
+    { type: _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"] },
+    { type: _service_http_service__WEBPACK_IMPORTED_MODULE_6__["HttpService"] },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"] },
+    { type: _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"] }
 ];
 LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -149,7 +212,12 @@ LoginPage = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./login.page.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/login/login.page.html")).default,
         styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./login.page.scss */ "./src/app/login/login.page.scss")).default]
     }),
-    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"]])
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["ModalController"],
+        _angular_forms__WEBPACK_IMPORTED_MODULE_5__["FormBuilder"],
+        _service_http_service__WEBPACK_IMPORTED_MODULE_6__["HttpService"],
+        _ionic_angular__WEBPACK_IMPORTED_MODULE_3__["AlertController"],
+        _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]])
 ], LoginPage);
 
 

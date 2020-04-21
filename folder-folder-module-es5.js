@@ -21,7 +21,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony default export */
 
 
-    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>{{ folder }}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">{{ folder }}</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <div>\n    <ion-searchbar placeholder=\"Pesquisar Ruas\" autocomplete=\"on\" (ionInput)=\"filterList($event)\"></ion-searchbar>\n    <ion-list>\n      <ion-item *ngFor=\"let item of goalList\" (click)=\"go(item)\">\n        {{ item }}\n      </ion-item>\n    </ion-list>\n  </div>\n</ion-content>";
+    __webpack_exports__["default"] = "<ion-header [translucent]=\"true\">\n  <ion-toolbar>\n    <ion-buttons slot=\"start\">\n      <ion-menu-button></ion-menu-button>\n    </ion-buttons>\n    <ion-title>{{ folder }}</ion-title>\n  </ion-toolbar>\n</ion-header>\n\n<ion-content [fullscreen]=\"true\">\n  <ion-header collapse=\"condense\">\n    <ion-toolbar>\n      <ion-title size=\"large\">{{ folder }}</ion-title>\n    </ion-toolbar>\n  </ion-header>\n\n  <div *ngIf=\"userLevel !== 'high'\">\n    <ion-searchbar placeholder=\"Pesquisar Ruas\" autocomplete=\"on\" (ionInput)=\"filterGoalList($event)\"></ion-searchbar>\n    <ion-list>\n      <ion-item *ngFor=\"let item of goalList\" (click)=\"goGoal(item)\">\n        {{ item }}\n      </ion-item>\n    </ion-list>\n  </div>\n\n  <div *ngIf=\"userLevel === 'high'\">\n    <ion-searchbar placeholder=\"Pesquisar Usuarios\" autocomplete=\"on\" (ionInput)=\"filterUserList($event)\"></ion-searchbar>\n    <ion-list>\n      <ion-item *ngFor=\"let item of userList\" (click)=\"goUser(item)\">\n        {{ item }}\n      </ion-item>\n    </ion-list>\n  </div>\n</ion-content>";
     /***/
   },
 
@@ -218,49 +218,78 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     /* harmony import */
 
 
-    var _data_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
-    /*! ../data.service */
-    "./src/app/data.service.ts");
-    /* harmony import */
-
-
-    var _environments_ruas_rdp__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
-    /*! ../../environments/ruas-rdp */
-    "./src/environments/ruas-rdp.ts");
-    /* harmony import */
-
-
-    var _environments_ruas_jd__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(
-    /*! ../../environments/ruas-jd */
-    "./src/environments/ruas-jd.ts");
+    var _service_http_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
+    /*! ../service/http.service */
+    "./src/app/service/http.service.ts");
 
     var FolderPage = /*#__PURE__*/function () {
-      function FolderPage(router, route, data) {
+      function FolderPage(router, route, http) {
         _classCallCheck(this, FolderPage);
 
         this.router = router;
         this.route = route;
-        this.data = data;
+        this.http = http;
       }
 
       _createClass(FolderPage, [{
         key: "ngOnInit",
         value: function ngOnInit() {
-          this.folder = 'Ruas do Território';
-          this.congregacao = this.route.snapshot.paramMap.get('congregacao');
-          this.data.changeCongregacao(this.congregacao);
+          return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
+            var _this = this;
 
-          if (this.congregacao === 'Jardim Violeta') {
-            this.goalList = _environments_ruas_jd__WEBPACK_IMPORTED_MODULE_5__["ruas_jd"].sort();
-          } else if (this.congregacao === 'Rio da Prata') {
-            this.goalList = _environments_ruas_rdp__WEBPACK_IMPORTED_MODULE_4__["ruas_rdp"].sort();
-          }
+            return regeneratorRuntime.wrap(function _callee$(_context) {
+              while (1) {
+                switch (_context.prev = _context.next) {
+                  case 0:
+                    this.username = JSON.parse(window.localStorage['myData']).username;
+                    _context.next = 3;
+                    return this.http.getOneUserByUsername(this.username);
 
-          this.goalListOriginal = this.goalList;
+                  case 3:
+                    this.usernameResponse = _context.sent;
+                    this.userLevel = this.usernameResponse.userLevel;
+
+                    if (!(this.userLevel === 'high')) {
+                      _context.next = 14;
+                      break;
+                    }
+
+                    this.folder = 'Administrador';
+                    _context.next = 9;
+                    return this.http.getAllUsersByCongregation(this.usernameResponse.congregation);
+
+                  case 9:
+                    this.congregacaoResponse = _context.sent;
+                    this.userList = this.congregacaoResponse.filter(function (user) {
+                      return user.username !== _this.username;
+                    }).map(function (user) {
+                      return user.name;
+                    });
+                    this.userListOriginal = this.userList;
+                    _context.next = 17;
+                    break;
+
+                  case 14:
+                    this.folder = 'Ruas Disponíveis';
+                    this.goalList = this.usernameResponse.ruasAvailable;
+                    this.goalListOriginal = this.goalList;
+
+                  case 17:
+                  case "end":
+                    return _context.stop();
+                }
+              }
+            }, _callee, this);
+          }));
         }
       }, {
-        key: "filterList",
-        value: function filterList(evt) {
+        key: "ionViewWillEnter",
+        value: function ionViewWillEnter() {
+          this.ngOnInit();
+        }
+      }, {
+        key: "filterGoalList",
+        value: function filterGoalList(evt) {
           var searchTerm = evt.srcElement.value;
 
           if (!searchTerm) {
@@ -279,9 +308,34 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
           });
         }
       }, {
-        key: "go",
-        value: function go(item) {
+        key: "filterUserList",
+        value: function filterUserList(evt) {
+          var searchTerm = evt.srcElement.value;
+
+          if (!searchTerm) {
+            this.userList = this.userListOriginal;
+            return;
+          }
+
+          this.userList = this.userList.filter(function (currentGoal) {
+            if (currentGoal && searchTerm) {
+              if (currentGoal.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1) {
+                return true;
+              }
+
+              return false;
+            }
+          });
+        }
+      }, {
+        key: "goGoal",
+        value: function goGoal(item) {
           this.router.navigate(['/telefones', item]);
+        }
+      }, {
+        key: "goUser",
+        value: function goUser(item) {
+          this.router.navigate(['/edit-users', item]);
         }
       }]);
 
@@ -294,7 +348,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       }, {
         type: _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"]
       }, {
-        type: _data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]
+        type: _service_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]
       }];
     };
 
@@ -306,68 +360,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
       styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(
       /*! ./folder.page.scss */
       "./src/app/folder/folder.page.scss"))["default"]]
-    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _data_service__WEBPACK_IMPORTED_MODULE_3__["DataService"]])], FolderPage);
-    /***/
-  },
-
-  /***/
-  "./src/environments/ruas-jd.ts":
-  /*!*************************************!*\
-    !*** ./src/environments/ruas-jd.ts ***!
-    \*************************************/
-
-  /*! exports provided: ruas_jd */
-
-  /***/
-  function srcEnvironmentsRuasJdTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ruas_jd", function () {
-      return ruas_jd;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-
-    var ruas_jd = ["Avenida Carlos Sampaio Correia", "Rua Acepe", "Rua Aguinaldo Rocha", "Rua Almiro Bernardo", "Rua Antônio Alfredo Campos", "Rua Armisticio", "Rua Bandeirante Lourdes Rocha", "Rua Benares", "Rua Bombaim", "Rua Santana Riacho", "Rua Cairo", "Rua Canaan", "Rua Claudino Pinheiro", "Rua Cristo Vive", "Rua Dom Pedro I", "Rua Engenheiro Paula Lopes", "Rua Hermann Blumenau", "Rua José Filho", "Rua Júlio Isnard", "Rua Lesseps", "Rua Marmiari", "Rua Mucuripe", "Rua Natal", "Rua Orlando Martins", "Rua Osaka", "Rua Oscar Schade", "Rua Otacílio Francesconi Porto", "Rua Paulo Mendes Rodrigues", "Rua Paulo Pereira", "Rua Paulo Rola", "Rua Santa Eulália", "Rua Santa Márcia", "Rua Santana", "Rua Severino Filho", "Rua Suez", "Rua São Rupeto", "Rua Tiquia", "Rua Toquio", "Rua Valdemar Fidalgo", "Rua Volga", "Rua da Aclamação", "Rua da Aeronáutica", "Rua da Felicidade", "Rua das Mangueiras", "Rua do Encanamento"];
-    /***/
-  },
-
-  /***/
-  "./src/environments/ruas-rdp.ts":
-  /*!**************************************!*\
-    !*** ./src/environments/ruas-rdp.ts ***!
-    \**************************************/
-
-  /*! exports provided: ruas_rdp */
-
-  /***/
-  function srcEnvironmentsRuasRdpTs(module, __webpack_exports__, __webpack_require__) {
-    "use strict";
-
-    __webpack_require__.r(__webpack_exports__);
-    /* harmony export (binding) */
-
-
-    __webpack_require__.d(__webpack_exports__, "ruas_rdp", function () {
-      return ruas_rdp;
-    });
-    /* harmony import */
-
-
-    var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(
-    /*! tslib */
-    "./node_modules/tslib/tslib.es6.js");
-
-    var ruas_rdp = ["Avenida Cônego Vasconcelos", "Avenida Josino Fernandes", //"Avenida de Santa Cruz",
-    "Estrada Maravilha", "Rua 12 de Fevereiro", "Rua Acanto", "Rua Adonis", "Rua Aglaia", "Rua Ailanto", "Rua Ajuara", "Rua Alfredo Carneiro", "Rua Amanajó", "Rua Antônio Canedo", "Rua Antônio Carlos Cabral", "Rua Aracitaba", "Rua Arimbu", "Rua Arnaldo Henrique", "Rua Bangu", "Rua Barão de Capanema", "Rua Belo Horizonte", "Rua Benares", "Rua Biriba", "Rua Boaria", "Rua Boiobi", "Rua Bombaim", "Rua Cassiterita", "Rua Cavani", "Rua Cobé", "Rua Cordisburgo", "Rua Cordislândia", "Rua Coronel Tamarindo", "Rua César Bahar", "Rua Djalma Batista", "Rua Dom Cavati", "Rua Dom Pedro I", "Rua Edson Neves Quaresma", "Rua Eduardo Timóteo Filho", "Rua Engenheiro Paula Lopes", "Rua Fonseca", "Rua Francisco Barreto", "Rua Francisco Franco", "Rua Francisco Real", "Rua Frederico Leal", "Rua Graciliano Ramos", "Rua Henrique Domingues", "Rua Hélio Carvalho Araújo", "Rua Ibora", "Rua Imaruí", "Rua Itacarambi", "Rua Jacinto Alcides", "Rua José Campos Barreto", "Rua João Hammes", "Rua Julião Machado", "Rua Jundiaí", "Rua Júlio César", "Rua Laranjal Paulista", "Rua Laranjal Paulista ", "Rua Major Oscar Costa", "Rua Maravilha", "Rua Milton Palmeira", "Rua Milton Palmeira Castro", "Rua Minerva", "Rua Minuanos", "Rua Mongolia", "Rua Oliveira Ribeiro", "Rua Osaka", "Rua Padre Josino Tavares", "Rua Palmiro Alves", "Rua Pierre Curie", "Rua Pirapitinga", "Rua Professor Clemente Ferreira", "Rua Péricles", "Rua Rangel Pestana", "Rua Renato Rebecchi", "Rua Rio da Prata", "Rua Roberto Doyle Maia", "Rua Ronaldo Mourt Queiroz", "Rua Santa Cecília", "Rua Silva Cardoso", "Rua Simon Cristiano", "Rua Simão Cristino", "Rua Tibagi", "Rua Tietê", "Rua Toquio", "Rua Ubaldo Ramalhete", "Rua Urucum", "Rua Vitória", "Rua Volga", "Rua Washington Lima", "Rua da Feira", "Rua da Fiação", "Rua da Fábrica", "Rua da Pedreira", "Rua das Artes", "Rua dos Açudes", "Rua dos Banguenses", "Rua dos Curvelos", "Rua dos Estampadores", "Rua dos Limadores"];
+    }), tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"], _service_http_service__WEBPACK_IMPORTED_MODULE_3__["HttpService"]])], FolderPage);
     /***/
   }
 }]);
